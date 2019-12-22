@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+
+  <body>
+     <!-- ヘッダー部分 -->
+      <header class="navbar navbar-fixed-top navbar-inverse navbar-static-top">
+        <div class="container">
+        <nav class="nav navbar-nav navbar-left">
+          <span>Bookers</span>
+        </nav>
+        <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to user_path(current_user) do %>
+                <i class="glyphicon glyphicon-home">
+                  <span class="mgr-10">Home</span>
+                </i>
+              <% end%>
+            </li>
+            <li>
+              <%= link_to users_path do %>
+                <i class="glyphicon glyphicon-user users">
+                  <span class="mgr-10">Users</span>
+                </i>
+              <% end%>
+            </li>
+            <li>
+              <%= link_to books_path do %>
+                <i class="glyphicon glyphicon-book books">
+                  <span class="mgr-10">Books</span>
+                </i>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="glyphicon glyphicon-log-out logout">
+                  <span class="mgr-10">logout</span>
+                </i>
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to root_path do %>
+                <i class="glyphicon glyphicon-home">
+                  <span class="mgr-10">Home</span>
+                </i>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to home_about_path do %>
+                <i class="glyphicon glyphicon-link">
+                  <span class="mgr-10">About</span>
+                </i>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path do %>
+                <i class="glyphicon glyphicon-edit">
+                  <span class="mgr-10">Sign up</span>
+                </i>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path do %>
+                <i class="glyphicon glyphicon-log-in">
+                  <span class="mgr-10">login</span>
+                </i>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+      </div>
+      </header>
+
+
+    <%= yield %>
+<!-- フッダー部分 -->
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-3 col-xs-offset-9">
+              <p>CopyRight Infratop.inc</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+ </body>
+</html>

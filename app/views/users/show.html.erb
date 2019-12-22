@@ -1,0 +1,82 @@
+<!-- マイページ部分　Homeボタン -->
+
+<div class="container">
+  <div class="row">
+    <!-- 　サクセスメッセージ -->
+    <% if flash[:notice] %>
+      <div class="flash">
+       <%= flash[:notice] %>
+      </div>
+    <% end %>
+<!-- プロフィール部分 -->
+<div class="col-xs-3">
+  <h2>User info</h2>
+  　<%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %>
+     <table class="table">
+       <tbody>
+        <tr></tr>
+        <tr>
+          <th>name</th>
+          <th><%= @user.name %></th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <th><%= @user.introduction %></th>
+        </tr>
+       </tbody>
+     </table>
+     <% if @user.id == current_user.id %>
+         <div class="row">
+          <%= link_to edit_user_path(@user) do %>
+          <i class="col-xs-12 btn btn-default btn-block glyphicon glyphicon-wrench"></i>
+          <% end %>
+         </div>
+     <% end %>
+<!-- プロフィール　ここまで -->
+
+<!-- 本の投稿フォーム -->
+  <h2>New book</h2>
+    <%= form_for(@book) do |f| %>
+       <div class="field row">
+          <label>Title</label><br>
+          <%= f.text_field :title, class:"col-xs-12" %>
+       </div>
+       <div class="field row">
+          <label>Opinion</label><br>
+          <%= f.text_area :body, class:"col-xs-12" %>
+        </div>
+        <div class="field row">
+          <%= f.submit 'Create Book', class:"btn btn-primary btn-block" %>
+        </div>
+    <% end %>
+  </div>
+  <!-- 本の投稿フォーム　ここまで -->
+
+<!-- 本の投稿一覧（自分の投稿のみ） -->
+ <div class="col-xs-9">
+  <h2>Books</h2>
+      <table class="table table-hover table-inverse">
+       <thead>
+         <th></th>
+         <th>Title</th>
+         <th>Opinion</th>
+       </thead>
+       <% @books.each do |book| %>
+        <tbody>
+          <tr>
+           <td>
+            <%= link_to attachment_image_tag(book.user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40"), user_path(book.user_id) %>
+           </td>
+           <td>
+            <%= link_to book.title, book_path(book.id) %>
+           </td>
+           <td><%= book.body %>
+           </td>
+         </tr>
+        </tbody>
+       <% end %>
+      </table>
+  </div>
+ </div>
+</div>
+<!-- 本の投稿一覧 （自分の投稿のみ）ここまで -->

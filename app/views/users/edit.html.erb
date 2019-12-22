@@ -1,0 +1,40 @@
+<!-- プロフィール編集ページ　-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+
+<h2>User info</h2>
+    <!-- プロフィール編集エラー -->
+    <% if current_user.errors.any? %>
+      <div>
+        <h2><%= current_user.errors.count %> error prohibited this obj from being saved:
+        </h2>
+        <ul>
+          <% current_user.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+      <!-- 入力フォーム -->
+      <%= form_for current_user do |f| %>
+      <div>
+      	<label>Name</label>
+      	<%= f.text_field :name %>
+      </div>
+      <div>
+      	<label>Image</label>
+      	<%= f.attachment_field :profile_image, placeholder:"プロフィール画像" %>
+      </div>
+      <div>
+      	<label>Introduction</label>
+      	<%= f.text_area :introduction %>
+      </div>
+      <div>
+      	<%= f.submit "Update User" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
